@@ -121,7 +121,7 @@
       background: linear-gradient(135deg, #ff2a2a, #be0000);
     }
 
-    /* Sección Video Personalizado */
+    /* Sección Video MP4 Personalizado */
     .video-section {
       margin-top: 50px;
       text-align: center;
@@ -141,59 +141,52 @@
     .video-container {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%;
       border-radius: 18px;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.15);
       background: #000;
+      cursor: pointer;
     }
 
-    .video-container iframe {
+    .video-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Capa de Control Flotante en el Centro */
+    .video-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      border: 0;
-      pointer-events: none;
-    }
-
-    /* Capa de Miniatura */
-    .video-thumbnail {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
+      background: rgba(0, 0, 0, 0.3);
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
-      z-index: 2;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    .video-thumbnail.hidden {
+    .video-overlay.hidden {
       opacity: 0;
       visibility: hidden;
     }
 
-    .play-btn-big {
+    .play-btn-center {
       width: 80px;
       height: 80px;
-      background: rgba(0, 242, 254, 0.85);
+      background: rgba(0, 242, 254, 0.9);
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       box-shadow: 0 0 25px rgba(0, 242, 254, 0.8);
-      transition: transform 0.3s ease, background 0.3s ease;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
 
-    .play-btn-big::after {
+    .play-btn-center::after {
       content: '';
       display: block;
       width: 0;
@@ -201,34 +194,12 @@
       border-style: solid;
       border-width: 15px 0 15px 26px;
       border-color: transparent transparent transparent #ffffff;
-      margin-left: 5px;
+      margin-left: 6px;
     }
 
-    .video-thumbnail:hover .play-btn-big {
-      transform: scale(1.15);
+    .video-container:hover .play-btn-center {
+      transform: scale(1.1);
       background: rgba(0, 242, 254, 1);
-    }
-
-    /* Botón flotante para Pausar/Reanudar */
-    .custom-control-btn {
-      margin-top: 15px;
-      background: linear-gradient(135deg, #00f2fe, #4facfe);
-      color: #000;
-      font-size: 1rem;
-      font-weight: 800;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(0, 242, 254, 0.3);
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .custom-control-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 242, 254, 0.5);
     }
 
     /* Sección Créditos */
@@ -344,18 +315,18 @@
       <p class="community-title">Unanse a nuestra comunidad</p>
       <a href="https://www.roblox.com/share/g/127853389" target="_blank" rel="noopener" class="roblox-btn">Roblox</a>
 
-      <!-- Video con Miniatura e ID integrado -->
+      <!-- Video MP4 con Botón de Play Central -->
       <div class="video-section">
         <p class="video-title">Video recomendado</p>
-        <div class="video-container">
-          <!-- Miniatura apuntando al ID del video -->
-          <div class="video-thumbnail" id="videoThumbnail" style="background-image: url('https://img.youtube.com/vi/Hzcptdg_pqY/maxresdefault.jpg');">
-            <div class="play-btn-big"></div>
+        <div class="video-container" id="videoWrapper">
+          <video id="myVideo" playsinline preload="metadata">
+            <source src="video.mp4" type="video/mp4">
+            Tu navegador no soporta videos HTML5.
+          </video>
+          <div class="video-overlay" id="videoOverlay">
+            <div class="play-btn-center"></div>
           </div>
-          <!-- Contenedor del reproductor -->
-          <div id="player"></div>
         </div>
-        <button class="custom-control-btn" id="togglePlayBtn">▶ Reproducir</button>
       </div>
 
       <!-- Créditos -->
@@ -374,55 +345,27 @@
   <!-- Botón Volver arriba -->
   <button class="scroll-top-btn" id="scrollTopBtn">↑ Volver arriba</button>
 
-  <!-- Carga de la API de YouTube -->
-  <script src="https://www.youtube.com/iframe_api"></script>
-
   <script>
-    // Configuración del reproductor de YouTube
-    let player;
-    let isPlaying = false;
+    // Lógica del Video MP4
+    const videoWrapper = document.getElementById('videoWrapper');
+    const myVideo = document.getElementById('myVideo');
+    const videoOverlay = document.getElementById('videoOverlay');
 
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        videoId: 'Hzcptdg_pqY',
-        playerVars: {
-          'controls': 0,
-          'rel': 0,
-          'modestbranding': 1,
-          'playsinline': 1
-        },
-        events: {
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
-
-    const videoThumbnail = document.getElementById('videoThumbnail');
-    const togglePlayBtn = document.getElementById('togglePlayBtn');
-
-    function togglePlay() {
-      if (!player) return;
-      if (isPlaying) {
-        player.pauseVideo();
+    function toggleVideoPlay() {
+      if (myVideo.paused) {
+        myVideo.play();
+        videoOverlay.classList.add('hidden');
       } else {
-        player.playVideo();
-        videoThumbnail.classList.add('hidden');
+        myVideo.pause();
+        videoOverlay.classList.remove('hidden');
       }
     }
 
-    videoThumbnail.addEventListener('click', togglePlay);
-    togglePlayBtn.addEventListener('click', togglePlay);
+    videoWrapper.addEventListener('click', toggleVideoPlay);
 
-    function onPlayerStateChange(event) {
-      if (event.data === YT.PlayerState.PLAYING) {
-        isPlaying = true;
-        togglePlayBtn.textContent = '⏸ Pausar';
-        videoThumbnail.classList.add('hidden');
-      } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-        isPlaying = false;
-        togglePlayBtn.textContent = '▶ Reproducir';
-      }
-    }
+    myVideo.addEventListener('ended', () => {
+      videoOverlay.classList.remove('hidden');
+    });
 
     // Fondo animado canvas
     const canvas = document.getElementById('canvas-bg');
