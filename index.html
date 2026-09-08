@@ -556,9 +556,9 @@
         font-size: 1.5rem;
       }
 
+      /* Ocultar el botón ver proyectos en móvil */
       .view-projects-btn {
-        font-size: 0.95rem;
-        padding: 12px 25px;
+        display: none !important;
       }
 
       .roblox-btn {
@@ -566,8 +566,20 @@
         padding: 14px 35px;
       }
 
+      /* Sección inferior (xd buena) ajustada para móvil */
+      .bottom-section {
+        margin-top: 80vh; /* Se coloca más abajo */
+        gap: 10px;
+      }
+
+      .final-img {
+        max-width: 150px; /* Imagen más pequeña */
+        opacity: 0.35;    /* Menos opacidad */
+      }
+
       .final-text {
-        font-size: 2.2rem;
+        font-size: 1.3rem; /* Texto chiquito */
+        opacity: 0.35;    /* Menos opacidad */
       }
 
       /* Transformar carrusel 3D a vista plana limpia en celulares */
@@ -617,7 +629,7 @@
       <img src="logo.png" alt="Colun Studios Logo" class="app-logo">
       <h1 class="main-title">COLUN STUDIOS</h1>
 
-      <!-- BOTÓN PARA ABRIR EL MODAL DE PROYECTOS -->
+      <!-- BOTÓN PARA ABRIR EL MODAL DE PROYECTOS (SE OCULTA EN MÓVIL) -->
       <button class="view-projects-btn" onclick="openProjectsModal()">Ver Proyectos</button>
 
       <!-- Sección Próximos Proyectos -->
