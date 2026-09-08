@@ -18,7 +18,7 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       color: #ffffff;
-      background-color: #050508;
+      background-color: #020204;
       overflow-x: hidden;
       min-height: 100vh;
     }
@@ -34,15 +34,20 @@
       pointer-events: none;
     }
 
-    /* Contenedor principal */
     .page-container {
-      background: linear-gradient(to bottom, rgba(5, 5, 8, 0.2) 0%, rgba(5, 5, 8, 0.8) 50%, #050508 100%);
-      min-height: 250vh;
+      background: linear-gradient(
+        to bottom, 
+        rgba(15, 25, 50, 0.6) 0%, 
+        rgba(5, 5, 12, 0.85) 40%, 
+        rgba(2, 2, 4, 0.98) 75%, 
+        #000000 100%
+      );
+      min-height: 350vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 50px 20px 80px;
+      padding: 50px 20px 100px;
     }
 
     /* Sección Superior */
@@ -53,16 +58,16 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
+      max-width: 1000px;
     }
 
-    /* Logo Estilo App (Squircle) */
     .app-logo {
-      width: 130px;
-      height: 130px;
+      width: 140px;
+      height: 140px;
       object-fit: cover;
-      border-radius: 28px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 255, 255, 0.2);
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.4), 0 0 20px rgba(255, 255, 255, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.4);
       margin-bottom: 20px;
       background-color: #111;
       transition: transform 0.3s ease;
@@ -78,28 +83,136 @@
       letter-spacing: 4px;
       text-transform: uppercase;
       color: #ffffff;
-      text-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+      text-shadow: 0 0 25px rgba(0, 242, 254, 0.8), 0 0 50px rgba(107, 17, 255, 0.5);
       margin-bottom: 10px;
     }
 
-    .subtitle {
-      font-size: 1.4rem;
-      color: #e0e0e0;
-      margin-top: 10px;
-      font-weight: 300;
+    /* Botón Ver Proyectos */
+    .view-projects-btn {
+      margin-top: 15px;
+      margin-bottom: 25px;
+      background: linear-gradient(135deg, #00f2fe, #4facfe);
+      color: #000;
+      font-size: 1.1rem;
+      font-weight: 800;
+      padding: 14px 35px;
+      border-radius: 30px;
+      border: none;
+      text-transform: uppercase;
       letter-spacing: 1px;
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
 
+    .view-projects-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.8);
+    }
+
+    /* Sección Próximos Proyectos (Carrusel 2.5D en Círculo) */
+    .projects-section {
+      margin: 20px 0 80px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section-header {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #00f2fe;
+      text-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .carousel-3d-stage {
+      width: 100%;
+      max-width: 800px;
+      height: 320px;
+      perspective: 1000px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .carousel-3d-spinner {
+      width: 220px;
+      height: 280px;
+      position: absolute;
+      transform-style: preserve-3d;
+      animation: rotateCircle 18s infinite linear;
+    }
+
+    .carousel-3d-spinner:hover {
+      animation-play-state: paused;
+    }
+
+    .project-card {
+      position: absolute;
+      width: 220px;
+      height: 280px;
+      left: 0;
+      top: 0;
+      background: rgba(20, 20, 35, 0.85);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: 20px;
+      padding: 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 242, 254, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      border-color: rgba(0, 242, 254, 0.8);
+      box-shadow: 0 15px 35px rgba(0, 242, 254, 0.5);
+    }
+
+    .project-card:nth-child(1) { transform: rotateY(0deg) translateZ(240px); }
+    .project-card:nth-child(2) { transform: rotateY(120deg) translateZ(240px); }
+    .project-card:nth-child(3) { transform: rotateY(240deg) translateZ(240px); }
+
+    @keyframes rotateCircle {
+      from { transform: rotateX(-5deg) rotateY(0deg); }
+      to { transform: rotateX(-5deg) rotateY(360deg); }
+    }
+
+    .project-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      background-color: #1a1a24;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .project-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* Comunidad Roblox */
     .community-title {
       font-size: 1.8rem;
       color: #ffffff;
-      margin-top: 40px;
-      margin-bottom: 20px;
+      margin-top: 30px;
+      margin-bottom: 15px;
       font-weight: 600;
       text-shadow: 0 2px 10px rgba(0,0,0,0.7);
     }
 
-    /* Botón de Roblox */
     .roblox-btn {
       display: inline-block;
       background: linear-gradient(135deg, #e11c1c, #9e0000);
@@ -121,19 +234,31 @@
       background: linear-gradient(135deg, #ff2a2a, #be0000);
     }
 
-    /* Sección Video MP4 Personalizado */
-    .video-section {
-      margin-top: 50px;
+    /* Videos Recomendados */
+    .videos-section {
+      margin-top: 60px;
       text-align: center;
       width: 100%;
-      max-width: 600px;
     }
 
-    .video-title {
-      font-size: 1.3rem;
-      color: #00f2fe;
-      margin-bottom: 15px;
-      font-weight: bold;
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .video-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .video-card-title {
+      font-size: 1rem;
+      color: #aaa;
+      margin-bottom: 10px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
@@ -143,26 +268,26 @@
       width: 100%;
       border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       background: #000;
       cursor: pointer;
     }
 
     .video-container video {
       width: 100%;
-      height: auto;
+      height: 220px;
+      object-fit: cover;
       display: block;
     }
 
-    /* Capa de Control Flotante en el Centro */
     .video-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.35);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -175,15 +300,14 @@
     }
 
     .play-btn-center {
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
       background: rgba(0, 242, 254, 0.9);
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       box-shadow: 0 0 25px rgba(0, 242, 254, 0.8);
-      transition: transform 0.2s ease, background 0.2s ease;
     }
 
     .play-btn-center::after {
@@ -192,36 +316,32 @@
       width: 0;
       height: 0;
       border-style: solid;
-      border-width: 15px 0 15px 26px;
+      border-width: 13px 0 13px 22px;
       border-color: transparent transparent transparent #ffffff;
-      margin-left: 6px;
+      margin-left: 5px;
     }
 
-    .video-container:hover .play-btn-center {
-      transform: scale(1.1);
-      background: rgba(0, 242, 254, 1);
-    }
-
-    /* Sección Créditos */
-    .credits-box {
-      margin-top: 35px;
-      padding: 15px 25px;
+    /* Créditos individuales por video */
+    .video-credits-box {
+      margin-top: 12px;
+      padding: 10px 16px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px dashed rgba(255, 255, 255, 0.2);
       border-radius: 12px;
-      backdrop-filter: blur(5px);
+      width: 100%;
+      text-align: center;
     }
 
     .credits-title {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: #888;
       text-transform: uppercase;
+      margin-bottom: 3px;
       letter-spacing: 1px;
-      margin-bottom: 5px;
     }
 
     .credits-name {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       color: #ffffff;
       font-weight: 600;
     }
@@ -229,19 +349,181 @@
     /* Sección Inferior */
     .bottom-section {
       text-align: center;
-      margin-top: 60vh;
+      margin-top: 120vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .final-img {
+      max-width: 280px;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      opacity: 0.8;
     }
 
     .final-text {
       font-size: 3.5rem;
       font-weight: 900;
-      color: #2a2a38;
+      color: #1a1a24;
       text-transform: lowercase;
-      letter-spacing: 2px;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
     }
 
-    /* Botón flotante para volver arriba */
+    /* ESTILOS DE LOS MODALES */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 20px;
+    }
+
+    #projectsListModal {
+      z-index: 900;
+    }
+
+    #gameDetailsModal {
+      z-index: 1000;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-window {
+      background: #0c0f17;
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 242, 254, 0.2);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: #888;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      color: #00f2fe;
+    }
+
+    /* Contenido del Modal de Proyectos */
+    .modal-projects-header {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 5px;
+    }
+
+    .modal-projects-sub {
+      color: #80868b;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+    }
+
+    .modal-games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .modal-game-card {
+      background: #121621;
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .modal-game-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 242, 254, 0.5);
+    }
+
+    .modal-game-thumb {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      background-color: #1a1a24;
+    }
+
+    .modal-game-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Estilos del Modal de Detalles */
+    .details-window {
+      max-width: 480px;
+      border-color: #00f2fe;
+    }
+
+    .details-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #00f2fe;
+      margin-bottom: 15px;
+    }
+
+    .details-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: #888;
+      letter-spacing: 1px;
+      margin-top: 15px;
+      display: block;
+      font-weight: 700;
+    }
+
+    .details-value {
+      font-size: 1rem;
+      color: #fff;
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    .details-date {
+      color: #00e676;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    /* Botón flotante arriba */
     .scroll-top-btn {
       position: fixed;
       bottom: 30px;
@@ -258,116 +540,195 @@
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      z-index: 500;
     }
 
     .scroll-top-btn.visible {
       opacity: 1;
       visibility: visible;
     }
-
-    .scroll-top-btn:hover {
-      background: #ffffff;
-      color: #000000;
-      transform: translateY(-3px);
-    }
-
-    @media (max-width: 768px) {
-      .app-logo {
-        width: 100px;
-        height: 100px;
-        border-radius: 22px;
-      }
-      .main-title {
-        font-size: 2.5rem;
-        letter-spacing: 2px;
-      }
-      .subtitle {
-        font-size: 1.1rem;
-      }
-      .community-title {
-        font-size: 1.3rem;
-      }
-      .roblox-btn {
-        font-size: 1.4rem;
-        padding: 15px 35px;
-      }
-      .final-text {
-        font-size: 2.2rem;
-      }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Fondo animado -->
   <canvas id="canvas-bg"></canvas>
 
   <div class="page-container">
-    <!-- Parte Superior -->
     <div class="top-section">
-      <!-- Logo apuntando a logo.png -->
       <img src="logo.png" alt="Colun Studios Logo" class="app-logo">
-
       <h1 class="main-title">COLUN STUDIOS</h1>
-      <p class="subtitle">no hay nada por ahora xd</p>
 
-      <p class="community-title">Unanse a le comunidad</p>
-      <a href="https://www.roblox.com/share/g/127853389" target="_blank" rel="noopener" class="roblox-btn">Roblox</a>
+      <button class="view-projects-btn" onclick="openProjectsModal()">Ver Proyectos</button>
 
-      <!-- Video MP4 con Botón de Play Central -->
-      <div class="video-section">
-        <p class="video-title">Video recomendado</p>
-        <div class="video-container" id="videoWrapper">
-          <video id="myVideo" playsinline preload="metadata">
-            <source src="video.mp4" type="video/mp4">
-            Tu navegador no soporta videos HTML5.
-          </video>
-          <div class="video-overlay" id="videoOverlay">
-            <div class="play-btn-center"></div>
+      <div class="projects-section">
+        <h2 class="section-header">Próximos Proyectos</h2>
+        
+        <div class="carousel-3d-stage">
+          <div class="carousel-3d-spinner">
+            
+            <div class="project-card" onclick="openGameDetails('Five nights at 3lame freddy', 'Parodia a la saga de videojuegos de Five Nights At Freddys con el Personaje &quot;Freddy&quot; de el canal de animaciones &quot;3LameStudios&quot;')">
+              <img src="imagen.jpg" alt="Five nights at 3lame freddy" class="project-img">
+              <h3 class="project-title">Five nights at 3lame freddy</h3>
+            </div>
+
+            <div class="project-card" onclick="openGameDetails('Conduce un gubby', 'Un divertido juego de conducción :v')">
+              <img src="imagen.jpg" alt="Conduce un gubby" class="project-img">
+              <h3 class="project-title">Conduce un gubby</h3>
+            </div>
+
+            <div class="project-card" onclick="openGameDetails('Yu Vs Wiedlak', 'Juego inspirado en Bear Alpha y You Vs Homer')">
+              <img src="imagen.jpg" alt="Yu Vs Wiedlak" class="project-img">
+              <h3 class="project-title">Yu Vs Wiedlak</h3>
+            </div>
+
           </div>
         </div>
       </div>
 
-      <!-- Créditos -->
-      <div class="credits-box">
-        <div class="credits-title">Créditos</div>
-        <div class="credits-name">095383user alias "tellmixd el aweonao"</div>
+      <p class="community-title">Únanse a nuestra comunidad</p>
+      <a href="https://www.roblox.com/share/g/127853389" target="_blank" rel="noopener" class="roblox-btn">Roblox</a>
+
+      <div class="videos-section">
+        <h2 class="section-header">Videos Recomendados</h2>
+        <div class="videos-grid">
+          
+          <div class="video-card">
+            <div class="video-card-title">Recomendado #1</div>
+            <div class="video-container" onclick="togglePlay('video1', 'overlay1')">
+              <video id="video1" playsinline preload="metadata">
+                <source src="video.mp4" type="video/mp4">
+              </video>
+              <div class="video-overlay" id="overlay1">
+                <div class="play-btn-center"></div>
+              </div>
+            </div>
+            <div class="video-credits-box">
+              <div class="credits-title">Créditos</div>
+              <div class="credits-name">095383user alias "tellmixd el aweonao"</div>
+            </div>
+          </div>
+
+          <div class="video-card">
+            <div class="video-card-title">Recomendado #2</div>
+            <div class="video-container" onclick="togglePlay('video2', 'overlay2')">
+              <video id="video2" playsinline preload="metadata">
+                <source src="videoplayback 5.mov" type="video/quicktime">
+                <source src="videoplayback 5.mov" type="video/mp4">
+              </video>
+              <div class="video-overlay" id="overlay2">
+                <div class="play-btn-center"></div>
+              </div>
+            </div>
+            <div class="video-credits-box">
+              <div class="credits-title">Créditos</div>
+              <div class="credits-name">3lamestudios</div>
+            </div>
+          </div>
+
+        </div>
       </div>
+
     </div>
 
-    <!-- Parte Inferior -->
     <div class="bottom-section">
+      <img src="fd2939f535ace25b64e4015011d76bb1.png" alt="Imagen Final" class="final-img">
       <div class="final-text">xd buena</div>
     </div>
   </div>
 
-  <!-- Botón Volver arriba -->
+
+  <div class="modal-overlay" id="projectsListModal" onclick="closeProjectsOnOverlay(event)">
+    <div class="modal-window">
+      <button class="modal-close-btn" onclick="closeProjectsModal()">×</button>
+      <h2 class="modal-projects-header">Nuestros Proyectos</h2>
+      <p class="modal-projects-sub">Una muestra de nuestros juegos disponibles e inspiraciones</p>
+
+      <div class="modal-games-grid">
+        
+        <div class="modal-game-card" onclick="openGameDetails('Five nights at 3lame freddy', 'Parodia a la saga de videojuegos de Five Nights At Freddys con el Personaje &quot;Freddy&quot; de el canal de animaciones &quot;3LameStudios&quot;')">
+          <img src="imagen.jpg" alt="Five nights at 3lame freddy" class="modal-game-thumb">
+          <div class="modal-game-name">Five nights at 3lame freddy</div>
+        </div>
+
+        <div class="modal-game-card" onclick="openGameDetails('Conduce un gubby', 'Un divertido juego de conducción :v')">
+          <img src="imagen.jpg" alt="Conduce un gubby" class="modal-game-thumb">
+          <div class="modal-game-name">Conduce un gubby</div>
+        </div>
+
+        <div class="modal-game-card" onclick="openGameDetails('Yu Vs Wiedlak', 'Juego inspirado en Bear Alpha y You Vs Homer')">
+          <img src="imagen.jpg" alt="Yu Vs Wiedlak" class="modal-game-thumb">
+          <div class="modal-game-name">Yu Vs Wiedlak</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal-overlay" id="gameDetailsModal" onclick="closeDetailsOnOverlay(event)">
+    <div class="modal-window details-window">
+      <button class="modal-close-btn" onclick="closeGameDetails()">×</button>
+      <h2 class="details-title" id="detailsTitle">Nombre del juego</h2>
+      
+      <span class="details-label">Descripción</span>
+      <p class="details-value" id="detailsDescription">Descripción del juego aquí...</p>
+
+      <span class="details-label">Fecha de Lanzamiento</span>
+      <p class="details-value details-date">???</p>
+    </div>
+  </div>
+
+
   <button class="scroll-top-btn" id="scrollTopBtn">↑ Volver arriba</button>
 
-  <script>
-    // Lógica del Video MP4
-    const videoWrapper = document.getElementById('videoWrapper');
-    const myVideo = document.getElementById('myVideo');
-    const videoOverlay = document.getElementById('videoOverlay');
 
-    function toggleVideoPlay() {
-      if (myVideo.paused) {
-        myVideo.play();
-        videoOverlay.classList.add('hidden');
-      } else {
-        myVideo.pause();
-        videoOverlay.classList.remove('hidden');
+  <script>
+    /* LÓGICA DE MODALES */
+    function openProjectsModal() {
+      document.getElementById('projectsListModal').classList.add('active');
+    }
+
+    function closeProjectsModal() {
+      document.getElementById('projectsListModal').classList.remove('active');
+    }
+
+    function closeProjectsOnOverlay(e) {
+      if (e.target.id === 'projectsListModal') {
+        closeProjectsModal();
       }
     }
 
-    videoWrapper.addEventListener('click', toggleVideoPlay);
+    function openGameDetails(title, description) {
+      document.getElementById('detailsTitle').innerText = title;
+      document.getElementById('detailsDescription').innerText = description;
+      document.getElementById('gameDetailsModal').classList.add('active');
+    }
 
-    myVideo.addEventListener('ended', () => {
-      videoOverlay.classList.remove('hidden');
-    });
+    function closeGameDetails() {
+      document.getElementById('gameDetailsModal').classList.remove('active');
+    }
 
-    // Fondo animado canvas
+    function closeDetailsOnOverlay(e) {
+      if (e.target.id === 'gameDetailsModal') {
+        closeGameDetails();
+      }
+    }
+
+    /* LÓGICA DE VIDEOS */
+    function togglePlay(videoId, overlayId) {
+      const vid = document.getElementById(videoId);
+      const overlay = document.getElementById(overlayId);
+
+      if (vid.paused) {
+        vid.play();
+        overlay.classList.add('hidden');
+      } else {
+        vid.pause();
+        overlay.classList.remove('hidden');
+      }
+    }
+
+    /* FONDO ANIMADO CANVAS */
     const canvas = document.getElementById('canvas-bg');
     if (canvas && canvas.getContext) {
       const ctx = canvas.getContext('2d');
@@ -381,14 +742,18 @@
       resize();
 
       const blobs = [
-        { x: Math.random() * width, y: Math.random() * height, vx: 0.8, vy: 0.6, radius: 350, color: '#4facfe' },
-        { x: Math.random() * width, y: Math.random() * height, vx: -0.7, vy: 0.9, radius: 400, color: '#00f2fe' },
-        { x: Math.random() * width, y: Math.random() * height, vx: 0.5, vy: -0.8, radius: 450, color: '#6b11ff' },
-        { x: Math.random() * width, y: Math.random() * height, vx: -0.6, vy: -0.5, radius: 300, color: '#ff0844' }
+        { x: Math.random() * width, y: Math.random() * height, vx: 0.9, vy: 0.7, radius: 450, color: '#00f2fe' },
+        { x: Math.random() * width, y: Math.random() * height, vx: -0.8, vy: 1.0, radius: 500, color: '#4facfe' },
+        { x: Math.random() * width, y: Math.random() * height, vx: 0.6, vy: -0.9, radius: 550, color: '#6b11ff' },
+        { x: Math.random() * width, y: Math.random() * height, vx: -0.7, vy: -0.6, radius: 400, color: '#ff0844' }
       ];
 
       function animate() {
         ctx.clearRect(0, 0, width, height);
+
+        const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollFactor = window.scrollY / (scrollMax || 1);
+        ctx.globalAlpha = Math.max(0, 1 - scrollFactor * 1.3);
 
         blobs.forEach(blob => {
           blob.x += blob.vx;
@@ -397,10 +762,7 @@
           if (blob.x < -100 || blob.x > width + 100) blob.vx *= -1;
           if (blob.y < -100 || blob.y > height + 100) blob.vy *= -1;
 
-          const gradient = ctx.createRadialGradient(
-            blob.x, blob.y, 0,
-            blob.x, blob.y, blob.radius
-          );
+          const gradient = ctx.createRadialGradient(blob.x, blob.y, 0, blob.x, blob.y, blob.radius);
           gradient.addColorStop(0, blob.color);
           gradient.addColorStop(1, 'transparent');
 
@@ -415,11 +777,11 @@
       animate();
     }
 
-    // Botón para volver arriba
+    /* BOTÓN VOLVER ARRIBA */
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     if (scrollTopBtn) {
       window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
+        if (window.scrollY > 400) {
           scrollTopBtn.classList.add('visible');
         } else {
           scrollTopBtn.classList.remove('visible');
@@ -427,10 +789,7 @@
       });
 
       scrollTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
   </script>
