@@ -110,7 +110,7 @@
       box-shadow: 0 0 30px rgba(0, 242, 254, 0.8);
     }
 
-    /* Sección Próximos Proyectos (Carrusel 2.5D en Círculo) */
+    /* Sección Próximos Proyectos (Carrusel 2.5D) */
     .projects-section {
       margin: 20px 0 80px;
       width: 100%;
@@ -321,7 +321,7 @@
       margin-left: 5px;
     }
 
-    /* Créditos individuales por video */
+    /* Créditos individuales */
     .video-credits-box {
       margin-top: 12px;
       padding: 10px 16px;
@@ -389,13 +389,8 @@
       padding: 20px;
     }
 
-    #projectsListModal {
-      z-index: 900;
-    }
-
-    #gameDetailsModal {
-      z-index: 1000;
-    }
+    #projectsListModal { z-index: 900; }
+    #gameDetailsModal { z-index: 1000; }
 
     .modal-overlay.active {
       opacity: 1;
@@ -427,11 +422,8 @@
       transition: color 0.2s ease;
     }
 
-    .modal-close-btn:hover {
-      color: #00f2fe;
-    }
+    .modal-close-btn:hover { color: #00f2fe; }
 
-    /* Contenido del Modal de Proyectos */
     .modal-projects-header {
       font-size: 2rem;
       font-weight: 800;
@@ -487,7 +479,6 @@
       justify-content: center;
     }
 
-    /* Estilos del Modal de Detalles */
     .details-window {
       max-width: 480px;
       border-color: #00f2fe;
@@ -523,7 +514,6 @@
       font-weight: 800;
     }
 
-    /* Botón flotante arriba */
     .scroll-top-btn {
       position: fixed;
       bottom: 30px;
@@ -551,6 +541,7 @@
 </head>
 <body>
 
+  <!-- Fondo Canvas -->
   <canvas id="canvas-bg"></canvas>
 
   <div class="page-container">
@@ -558,26 +549,31 @@
       <img src="logo.png" alt="Colun Studios Logo" class="app-logo">
       <h1 class="main-title">COLUN STUDIOS</h1>
 
+      <!-- BOTÓN PARA ABRIR EL MODAL DE PROYECTOS -->
       <button class="view-projects-btn" onclick="openProjectsModal()">Ver Proyectos</button>
 
+      <!-- Sección Próximos Proyectos (Carrusel 2.5D) -->
       <div class="projects-section">
         <h2 class="section-header">Próximos Proyectos</h2>
         
         <div class="carousel-3d-stage">
           <div class="carousel-3d-spinner">
             
+            <!-- Proyecto 1 (Five nights at 3lame freddy -> imagen.jpe) -->
             <div class="project-card" onclick="openGameDetails('Five nights at 3lame freddy', 'Parodia a la saga de videojuegos de Five Nights At Freddys con el Personaje &quot;Freddy&quot; de el canal de animaciones &quot;3LameStudios&quot;')">
-              <img src="imagen.jpg" alt="Five nights at 3lame freddy" class="project-img">
+              <img src="imagen.jpe" alt="Five nights at 3lame freddy" class="project-img">
               <h3 class="project-title">Five nights at 3lame freddy</h3>
             </div>
 
+            <!-- Proyecto 2 (Conduce un gubby -> imagen_2.png) -->
             <div class="project-card" onclick="openGameDetails('Conduce un gubby', 'Un divertido juego de conducción :v')">
-              <img src="imagen.jpg" alt="Conduce un gubby" class="project-img">
+              <img src="imagen_2.png" alt="Conduce un gubby" class="project-img">
               <h3 class="project-title">Conduce un gubby</h3>
             </div>
 
+            <!-- Proyecto 3 (Yu Vs Wiedlak -> imagen_3.jpe) -->
             <div class="project-card" onclick="openGameDetails('Yu Vs Wiedlak', 'Juego inspirado en Bear Alpha y You Vs Homer')">
-              <img src="imagen.jpg" alt="Yu Vs Wiedlak" class="project-img">
+              <img src="imagen_3.jpe" alt="Yu Vs Wiedlak" class="project-img">
               <h3 class="project-title">Yu Vs Wiedlak</h3>
             </div>
 
@@ -585,13 +581,16 @@
         </div>
       </div>
 
+      <!-- Comunidad -->
       <p class="community-title">Únanse a nuestra comunidad</p>
       <a href="https://www.roblox.com/share/g/127853389" target="_blank" rel="noopener" class="roblox-btn">Roblox</a>
 
+      <!-- Videos Recomendados -->
       <div class="videos-section">
         <h2 class="section-header">Videos Recomendados</h2>
         <div class="videos-grid">
           
+          <!-- Video #1 (Edit) -->
           <div class="video-card">
             <div class="video-card-title">Recomendado #1</div>
             <div class="video-container" onclick="togglePlay('video1', 'overlay1')">
@@ -608,6 +607,7 @@
             </div>
           </div>
 
+          <!-- Video #2 -->
           <div class="video-card">
             <div class="video-card-title">Recomendado #2</div>
             <div class="video-container" onclick="togglePlay('video2', 'overlay2')">
@@ -630,6 +630,7 @@
 
     </div>
 
+    <!-- Parte Inferior -->
     <div class="bottom-section">
       <img src="fd2939f535ace25b64e4015011d76bb1.png" alt="Imagen Final" class="final-img">
       <div class="final-text">xd buena</div>
@@ -637,6 +638,7 @@
   </div>
 
 
+  <!-- VENTANA 1: MODAL DE LISTA DE PROYECTOS -->
   <div class="modal-overlay" id="projectsListModal" onclick="closeProjectsOnOverlay(event)">
     <div class="modal-window">
       <button class="modal-close-btn" onclick="closeProjectsModal()">×</button>
@@ -645,18 +647,21 @@
 
       <div class="modal-games-grid">
         
+        <!-- Juego 1 -->
         <div class="modal-game-card" onclick="openGameDetails('Five nights at 3lame freddy', 'Parodia a la saga de videojuegos de Five Nights At Freddys con el Personaje &quot;Freddy&quot; de el canal de animaciones &quot;3LameStudios&quot;')">
-          <img src="imagen.jpg" alt="Five nights at 3lame freddy" class="modal-game-thumb">
+          <img src="imagen.jpe" alt="Five nights at 3lame freddy" class="modal-game-thumb">
           <div class="modal-game-name">Five nights at 3lame freddy</div>
         </div>
 
+        <!-- Juego 2 -->
         <div class="modal-game-card" onclick="openGameDetails('Conduce un gubby', 'Un divertido juego de conducción :v')">
-          <img src="imagen.jpg" alt="Conduce un gubby" class="modal-game-thumb">
+          <img src="imagen_2.png" alt="Conduce un gubby" class="modal-game-thumb">
           <div class="modal-game-name">Conduce un gubby</div>
         </div>
 
-        <div class="modal-game-card" onclick="openGameDetails('Yu Vs Wiedlak', 'Juego inspirado en Bear Alpha y You Vs Homer')">
-          <img src="imagen.jpg" alt="Yu Vs Wiedlak" class="modal-game-thumb">
+        <!-- Juego 3 -->
+        <div class="modal-game-card" onclick="openGameDetails('Yu Vs Wiedlak', 'Juego inspired en Bear Alpha y You Vs Homer')">
+          <img src="imagen_3.jpe" alt="Yu Vs Wiedlak" class="modal-game-thumb">
           <div class="modal-game-name">Yu Vs Wiedlak</div>
         </div>
 
@@ -665,6 +670,7 @@
   </div>
 
 
+  <!-- VENTANA 2: MODAL DE INFORMACIÓN DEL JUEGO -->
   <div class="modal-overlay" id="gameDetailsModal" onclick="closeDetailsOnOverlay(event)">
     <div class="modal-window details-window">
       <button class="modal-close-btn" onclick="closeGameDetails()">×</button>
@@ -679,11 +685,11 @@
   </div>
 
 
+  <!-- Botón Volver arriba -->
   <button class="scroll-top-btn" id="scrollTopBtn">↑ Volver arriba</button>
 
 
   <script>
-    /* LÓGICA DE MODALES */
     function openProjectsModal() {
       document.getElementById('projectsListModal').classList.add('active');
     }
@@ -714,7 +720,6 @@
       }
     }
 
-    /* LÓGICA DE VIDEOS */
     function togglePlay(videoId, overlayId) {
       const vid = document.getElementById(videoId);
       const overlay = document.getElementById(overlayId);
@@ -728,7 +733,6 @@
       }
     }
 
-    /* FONDO ANIMADO CANVAS */
     const canvas = document.getElementById('canvas-bg');
     if (canvas && canvas.getContext) {
       const ctx = canvas.getContext('2d');
@@ -777,7 +781,6 @@
       animate();
     }
 
-    /* BOTÓN VOLVER ARRIBA */
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     if (scrollTopBtn) {
       window.addEventListener('scroll', () => {
